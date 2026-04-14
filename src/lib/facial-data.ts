@@ -92,17 +92,4 @@ export const facialGalleryData: FacialCase[] = [
       "Destaque do contorno mandibular",
     ],
   },
-  {
-    id: "preenchimento-peniano",
-    procedure: "Preenchimento peniano",
-    caption: "Preenchimento peniano",
-    description:
-      "Aumento de volume e circunferência com ácido hialurônico. Procedimento ambulatorial, com resultados imediatos e reversíveis.",
-    beforeImage: u("photo-1576091160550-2173dba999ef"),
-    afterImage: u("photo-1519494026892-80bbd2d6fd0d"),
-    details: [
-      "Volume e circunferência com ácido hialurônico",
-      "Ambulatorial, reversível com hialuronidase",
-    ],
-  },
 ];
