@@ -41,6 +41,7 @@ export function SeductiveFormModal({ isOpen, onClose, caseId }: SeductiveFormMod
 
     setIsSubmitting(true);
     setErrorMessage("");
+    const accessWindow = window.open("", "_blank", "noopener,noreferrer");
 
     try {
       const response = await fetch("/api/privado-access", {
@@ -63,8 +64,16 @@ export function SeductiveFormModal({ isOpen, onClose, caseId }: SeductiveFormMod
       }
 
       const payload = await response.json();
-      window.location.assign(payload.redirectTo ?? "/privado/acesso");
+      const targetUrl = payload.redirectTo ?? "/privado/acesso";
+
+      if (accessWindow) {
+        accessWindow.location.href = targetUrl;
+        accessWindow.focus();
+      } else {
+        window.location.assign(targetUrl);
+      }
     } catch (error) {
+      accessWindow?.close();
       setErrorMessage(error instanceof Error ? error.message : "Falha ao confirmar o acesso.");
     } finally {
       setIsSubmitting(false);
