@@ -41,7 +41,7 @@ export function SeductiveFormModal({ isOpen, onClose, caseId }: SeductiveFormMod
 
     setIsSubmitting(true);
     setErrorMessage("");
-    const accessWindow = window.open("", "_blank", "noopener,noreferrer");
+    const accessWindow = window.open("", "_blank");
 
     try {
       const response = await fetch("/api/privado-access", {
