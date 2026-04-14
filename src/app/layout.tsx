@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, DM_Serif_Display } from "next/font/google";
+import { Outfit, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
@@ -7,16 +7,16 @@ import { WhatsappFloat } from "@/components/whatsapp-float";
 import { siteConfig } from "@/lib/config";
 import { DentistJsonLd, WebSiteJsonLd } from "@/components/json-ld";
 
-const inter = Inter({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-outfit",
   display: "swap",
 });
 
-const dmSerif = DM_Serif_Display({
-  weight: "400",
+const cormorantGaramond = Cormorant_Garamond({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-dm-serif",
+  variable: "--font-cormorant",
   display: "swap",
 });
 
@@ -41,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${dmSerif.variable}`}>
+    <html lang="pt-BR" className={`${outfit.variable} ${cormorantGaramond.variable}`}>
       <body className="font-sans">
         <DentistJsonLd />
         <WebSiteJsonLd />

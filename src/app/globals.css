@@ -10,7 +10,21 @@
   }
 
   body {
-    @apply bg-brand-950 text-brand-100;
+    @apply bg-brand-950 text-brand-100 relative;
+  }
+
+  /* Grain overlay for luxury feel */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 50;
   }
 
   ::selection {
@@ -26,7 +40,7 @@
   .reveal {
     opacity: 0;
     transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
   .reveal.visible {
@@ -35,14 +49,14 @@
   }
 
   .gold-gradient {
-    background: linear-gradient(135deg, #c9a96e 0%, #9a7a3d 100%);
+    background: linear-gradient(135deg, #d4b978 0%, #a8892f 100%);
   }
 
   .cta-button {
-    @apply inline-flex items-center justify-center gap-2 bg-gold-500 text-brand-950 font-medium px-8 py-4 text-sm tracking-wider uppercase transition-all duration-300 hover:bg-gold-400;
+    @apply inline-flex items-center justify-center gap-2 bg-gold-400 text-brand-950 font-medium px-8 py-4 text-sm tracking-widest font-sans uppercase transition-all duration-300 hover:bg-gold-500 shadow-[0_0_0_rgba(212,185,120,0)] hover:shadow-[0_0_20px_rgba(212,185,120,0.3)] hover:-translate-y-0.5;
   }
 
   .cta-button-outline {
-    @apply inline-flex items-center justify-center gap-2 border border-brand-600 text-brand-200 px-8 py-4 text-sm tracking-wider uppercase transition-all duration-300 hover:border-gold-500 hover:text-gold-400;
+    @apply inline-flex items-center justify-center gap-2 border border-brand-600 text-brand-200 px-8 py-4 text-sm tracking-widest font-sans uppercase transition-all duration-300 hover:border-gold-400 hover:text-gold-400 hover:-translate-y-0.5;
   }
 }

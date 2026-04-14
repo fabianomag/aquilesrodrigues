@@ -70,34 +70,34 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-brand-950 via-brand-950/80 to-brand-950" />
         </div>
 
-        <div className="relative z-10 section-padding py-32 md:py-40 w-full">
+        <div className="relative z-10 section-padding py-32 md:py-40 w-full animate-fade-in-up">
           <div className="max-w-4xl">
             <Reveal>
-              <p className="text-gold-400 text-xs tracking-[0.3em] uppercase mb-6">
+              <p className="text-gold-400 text-xs tracking-[0.3em] font-sans uppercase mb-6 drop-shadow-md">
                 {siteConfig.cromg} &middot; Montes Claros &middot; BH
               </p>
             </Reveal>
             <Reveal delay={200}>
-              <h1 className="font-display text-hero md:text-hero-lg text-brand-50">
+              <h1 className="font-display text-hero md:text-hero-lg text-brand-50 leading-tight">
                 Resultados que falam
                 <br />
-                <span className="text-gold-400">por si mesmos</span>
+                <span className="text-gold-400 bg-clip-text">por si mesmos</span>
               </h1>
             </Reveal>
             <Reveal delay={400}>
-              <p className="mt-8 text-brand-300 text-lg md:text-xl max-w-2xl leading-relaxed">
-                Harmoniza&ccedil;&atilde;o facial e procedimentos est&eacute;ticos masculinos com t&eacute;cnica,
-                discri&ccedil;&atilde;o e resultados naturais. Mais de 302 mil pessoas acompanham
+              <p className="mt-8 text-brand-300 text-lg md:text-xl max-w-2xl leading-relaxed font-sans font-light">
+                Harmonização facial e procedimentos estéticos masculinos com técnica,
+                discrição e resultados naturais. Mais de 302 mil pessoas acompanham
                 meu trabalho.
               </p>
             </Reveal>
             <Reveal delay={600}>
-              <div className="mt-10 flex flex-col sm:flex-row gap-4">
+              <div className="mt-12 flex flex-col sm:flex-row gap-6">
                 <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="cta-button">
                   Agendar consulta
                 </a>
                 <Link href="/resultados" className="cta-button-outline">
-                  Ver resultados <ArrowRight size={16} />
+                  Ver resultados completos <ArrowRight size={16} />
                 </Link>
               </div>
             </Reveal>
@@ -183,28 +183,37 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={200}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[1, 2, 3].map((i) => (
-                <div
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+              {[
+                { name: "Preenchimento Peniano", img: "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=800" },
+                { name: "Rinomodelação", img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800" },
+                { name: "Mandíbula", img: "https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=800" },
+                { name: "Mento", img: "https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?q=80&w=800" },
+                { name: "Lábios", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800" },
+                { name: "Botox", img: "https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?q=80&w=800" },
+                { name: "Alectomia", img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800" },
+                { name: "Bichectomia", img: "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?q=80&w=800" },
+              ].map((proc, i) => (
+                <Link
+                  href={proc.name === "Preenchimento Peniano" ? "/preenchimento-peniano" : "/resultados"}
                   key={i}
-                  className="aspect-[3/4] bg-brand-800 border border-brand-700/50 flex items-center justify-center"
+                  className="group relative aspect-[3/4] bg-brand-800 border border-brand-700/50 flex flex-col items-center justify-end overflow-hidden shadow-2xl"
                 >
-                  <div className="text-center">
-                    <p className="text-brand-500 text-sm tracking-wider uppercase">
-                      Resultado {i}
-                    </p>
-                    <p className="text-brand-600 text-xs mt-2">
-                      Foto com TCLE em breve
-                    </p>
+                  <Image src={proc.img} alt={proc.name} fill className="object-cover opacity-60 group-hover:scale-[1.03] group-hover:opacity-80 transition-all duration-700" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-brand-950/20 to-transparent pointer-events-none" />
+                  <div className="relative z-10 text-center pb-8 w-full translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <p className="text-gold-500 font-sans tracking-[0.2em] uppercase text-[10px] mb-2 opacity-80">Resultado</p>
+                    <p className="text-brand-100 font-display text-2xl drop-shadow-lg px-2">{proc.name}</p>
+                    <p className="text-gold-400/80 font-sans text-xs uppercase tracking-[0.1em] mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">Explorar <ArrowRight size={14} /></p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </Reveal>
 
           <Reveal delay={300}>
-            <Link href="/resultados" className="cta-button-outline mt-12 inline-flex">
-              Ver todos os resultados <ArrowRight size={16} />
+            <Link href="/resultados" className="cta-button mt-16 inline-flex">
+              Ver todos os resultados facial <ArrowRight size={16} />
             </Link>
           </Reveal>
         </div>
