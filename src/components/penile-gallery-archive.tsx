@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { PenileCase } from "@/lib/gallery-data";
 import { PenileFeedCard } from "@/components/penile-feed-card";
+import { PortfolioAccessModal } from "@/components/portfolio-access-modal";
 import { clsx } from "clsx";
 
 interface PenileGalleryArchiveProps {
@@ -29,6 +30,7 @@ const groups = [
 
 export function PenileGalleryArchive({ data }: PenileGalleryArchiveProps) {
   const [activeGroup, setActiveGroup] = useState<(typeof groups)[number]["id"]>("mini");
+  const [reservedItem, setReservedItem] = useState<PenileCase | null>(null);
 
   const activeConfig = groups.find((group) => group.id === activeGroup)!;
   const activeCases = useMemo(
@@ -84,10 +86,12 @@ export function PenileGalleryArchive({ data }: PenileGalleryArchiveProps) {
 
         <div className="mt-8 grid gap-8 lg:grid-cols-2">
           {activeCases.map((item) => (
-            <PenileFeedCard key={item.id} item={item} />
+            <PenileFeedCard key={item.id} item={item} onOpenReserved={setReservedItem} />
           ))}
         </div>
       </div>
+
+      <PortfolioAccessModal item={reservedItem} onClose={() => setReservedItem(null)} />
     </div>
   );
 }

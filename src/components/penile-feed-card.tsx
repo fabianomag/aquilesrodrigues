@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { PenileCase } from "@/lib/gallery-data";
-import { ChevronDown, Lock } from "lucide-react";
+import { Lock } from "lucide-react";
 import { BeforeAfterSlider } from "./before-after-slider";
-import { ProcedureSuitabilityWizard } from "@/components/procedure-suitability-wizard";
 
 const categoryLabels: Record<PenileCase["category"], string> = {
   mini: "Mini",
@@ -12,9 +10,12 @@ const categoryLabels: Record<PenileCase["category"], string> = {
   hung: "Alta presença",
 };
 
-export function PenileFeedCard({ item }: { item: PenileCase }) {
-  const [expanded, setExpanded] = useState(false);
+interface PenileFeedCardProps {
+  item: PenileCase;
+  onOpenReserved: (item: PenileCase) => void;
+}
 
+export function PenileFeedCard({ item, onOpenReserved }: PenileFeedCardProps) {
   return (
     <div className="mb-10 overflow-hidden rounded-md border border-black/15 bg-[#fbf4ec] sm:mb-12">
       <div className="group relative aspect-[4/5] w-full bg-[#ead0b5] sm:aspect-square">
@@ -23,7 +24,7 @@ export function PenileFeedCard({ item }: { item: PenileCase }) {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-1/2 bg-gradient-to-t from-[#17110e]/80 to-transparent" />
 
         <div className="pointer-events-none absolute bottom-6 left-6 right-6 z-20 space-y-4">
-        <div className="flex flex-wrap gap-2 text-[10px] font-sans tracking-widest uppercase">
+          <div className="flex flex-wrap gap-2 text-[10px] font-sans uppercase tracking-widest">
             <span className="border border-white/15 bg-[#17110e]/85 px-3 py-1 text-[#f6e5d4] shadow-sm">
               {categoryLabels[item.category]}
             </span>
@@ -56,29 +57,11 @@ export function PenileFeedCard({ item }: { item: PenileCase }) {
           </div>
           <button
             type="button"
-            onClick={() => setExpanded((current) => !current)}
+            onClick={() => onOpenReserved(item)}
             className="flex w-full items-center justify-center gap-2 rounded-md border border-[#17110e]/15 bg-[#17110e] px-6 py-4 text-xs font-medium uppercase tracking-[0.1em] text-[#fff8f0] transition-colors duration-300 hover:bg-[#2a211d] sm:w-auto"
           >
             <Lock size={14} /> Ver fotos em ereção
-            <ChevronDown
-              size={14}
-              className={`transition-transform duration-300 ${expanded ? "rotate-180" : ""}`}
-            />
           </button>
-        </div>
-
-        <div className={`grid transition-all duration-300 ${expanded ? "mt-6 grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-          <div className="overflow-hidden">
-            <div className="rounded-md border border-black/10 bg-[#fbf4ec] p-3 sm:p-4">
-              <ProcedureSuitabilityWizard
-                context="portfolio"
-                caseId={item.id}
-                caseLabel={`${item.caption} — fotos em ereção`}
-                compact
-                theme="light"
-              />
-            </div>
-          </div>
         </div>
       </div>
     </div>
