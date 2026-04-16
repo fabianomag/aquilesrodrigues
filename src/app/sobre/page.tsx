@@ -11,33 +11,35 @@ export const metadata: Metadata = {
 
 export default function SobrePage() {
   return (
-    <section className="pt-32 pb-24 md:pt-40 md:pb-32 section-padding">
+    <section className="bg-[#f7ead8] pt-32 pb-24 md:pt-40 md:pb-32 section-padding">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
         <Reveal>
-          <div className="relative aspect-[3/4] bg-brand-800">
-            <Image
-              src={portraitImage}
-              alt="Dr. Aquiles Rodrigues"
-              fill
-              className="object-cover opacity-80"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
-            />
+          <div className="striped-card-shell">
+            <div className="striped-card-panel relative aspect-[3/4] overflow-hidden bg-[#ead0b5]">
+              <Image
+                src={portraitImage}
+                alt="Dr. Aquiles Rodrigues"
+                fill
+                className="object-cover opacity-90"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+              />
+            </div>
           </div>
         </Reveal>
 
         <div className="md:pt-8">
           <Reveal>
-            <p className="text-xs tracking-[0.3em] uppercase text-gold-500 mb-4">
+            <p className="text-xs tracking-[0.3em] uppercase text-[#b96f2b] mb-4">
               Sobre
             </p>
-            <h1 className="font-display text-hero text-brand-50 mb-8">
+            <h1 className="font-display text-hero text-[#17110e] mb-8">
               Dr. Aquiles Rodrigues
             </h1>
           </Reveal>
 
           <Reveal delay={200}>
-            <div className="space-y-6 text-brand-300 leading-relaxed">
+            <div className="space-y-6 text-[#4f4036] leading-relaxed text-lg">
               <p>
                 Cirurgi&atilde;o-Dentista com registro {siteConfig.cromg}, Master em
                 Harmoniza&ccedil;&atilde;o Orofacial. Mais de 302 mil pessoas acompanham meu
@@ -58,47 +60,43 @@ export default function SobrePage() {
           </Reveal>
 
           <Reveal delay={400}>
-            <div className="mt-10 pt-8 border-t border-brand-800/50">
-              <dl className="grid grid-cols-2 gap-6">
-                <div>
-                  <dt className="text-xs tracking-widest uppercase text-brand-500 mb-1">
-                    Registro
+            <div className="mt-10 grid grid-cols-2 gap-4 border-t border-black/10 pt-8">
+              {[
+                { label: "Registro", value: siteConfig.cromg },
+                { label: "Seguidores", value: `${siteConfig.followers}+` },
+                { label: "Atendimento", value: "Montes Claros & BH" },
+                { label: "Instagram", value: "@draquilesrodrigues", href: siteConfig.instagram },
+              ].map((item) => (
+                <div key={item.label} className="rounded-md border border-black/10 bg-[#f1e2cf] p-4">
+                  <dt className="text-xs tracking-widest uppercase text-[#b96f2b] mb-1">
+                    {item.label}
                   </dt>
-                  <dd className="text-brand-200">{siteConfig.cromg}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs tracking-widest uppercase text-brand-500 mb-1">
-                    Seguidores
-                  </dt>
-                  <dd className="text-brand-200">{siteConfig.followers}+</dd>
-                </div>
-                <div>
-                  <dt className="text-xs tracking-widest uppercase text-brand-500 mb-1">
-                    Atendimento
-                  </dt>
-                  <dd className="text-brand-200">Montes Claros &amp; BH</dd>
-                </div>
-                <div>
-                  <dt className="text-xs tracking-widest uppercase text-brand-500 mb-1">
-                    Instagram
-                  </dt>
-                  <dd>
-                    <a
-                      href={siteConfig.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-brand-200 hover:text-gold-400 transition-colors"
-                    >
-                      @draquilesrodrigues
-                    </a>
+                  <dd className="text-[#17110e]">
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-colors hover:text-[#5b4c42]"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      item.value
+                    )}
                   </dd>
                 </div>
-              </dl>
+              ))}
             </div>
           </Reveal>
 
           <Reveal delay={500}>
-            <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="cta-button mt-10 inline-flex">
+            <a
+              href={whatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-10 inline-flex rounded-md bg-[#17110e] px-8 py-4 text-sm font-medium uppercase tracking-[0.16em] text-[#fff8f0] transition-colors hover:bg-[#2a211d]"
+            >
               Agendar consulta
             </a>
           </Reveal>

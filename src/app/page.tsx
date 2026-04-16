@@ -1,163 +1,326 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Shield, Award, MapPin, Users } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/reveal";
+import { ProcedureAccordionImageSection } from "@/components/procedure-accordion-image-section";
+import { ProcedureFaqSection } from "@/components/procedure-faq-section";
+import { ProcedureHeroHeader } from "@/components/procedure-hero-header";
+import { ClinicianShowcase } from "@/components/clinician-showcase";
+import { HorizontalTicker } from "@/components/horizontal-ticker";
 import { portraitImage, siteConfig, whatsappUrl } from "@/lib/config";
 
-const stats = [
-  { icon: Users, value: "302mil+", label: "seguidores" },
-  { icon: Shield, value: "CROMG 42004", label: "registro profissional" },
-  { icon: MapPin, value: "2 cidades", label: "Montes Claros e BH" },
-  { icon: Award, value: "Master", label: "em Harmoniza\u00e7\u00e3o Orofacial" },
+const heroSummary = [
+  "302 mil+ seguidores no Instagram",
+  "Montes Claros + Belo Horizonte",
+  "Discrição como padrão",
 ];
 
-const services = [
+const entryCards = [
   {
-    title: "Harmoniza\u00e7\u00e3o Facial",
+    title: "Harmonização facial",
     description:
-      "Rinomodela\u00e7\u00e3o, preenchimento de mand\u00edbula, mento, l\u00e1bios, botox e alectomia. Resultados naturais que respeitam a anatomia do seu rosto.",
+      "Rinomodelação, mandíbula, mento, lábios, botox e alectomia com planejamento anatômico, refinamento e resultado natural.",
     href: "/harmonizacao-facial",
-    image: portraitImage,
+    image:
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1400&q=80",
+    kicker: "Face pública",
   },
   {
-    title: "Preenchimento Peniano",
+    title: "Preenchimento peniano",
     description:
-      "Aumento de volume e circunfer\u00eancia com \u00e1cido hialur\u00f4nico. Procedimento seguro, ambulatorial, com resultados imediatos e revers\u00edveis.",
+      "Página própria, galeria pública organizada por volume e fluxo reservado para material mais sensível quando fizer sentido.",
     href: "/preenchimento-peniano",
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80",
+    image:
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1400&q=80",
+    kicker: "Fluxo reservado",
   },
 ];
 
-const faqs = [
+const tickerItems = [
+  "@perfil_bh",
+  "@paciente_mc",
+  "@criador_01",
+  "@resultado_real",
+  "@perfil_sp",
+  "@cliente_face",
+];
+
+const trustReasons = [
   {
-    q: "O preenchimento peniano d\u00f3i?",
-    a: "O procedimento \u00e9 realizado com anestesia local, garantindo conforto durante toda a aplica\u00e7\u00e3o. A maioria dos pacientes relata desconforto m\u00ednimo.",
+    title: "Anatomia antes do excesso",
+    body: "O desenho do resultado parte da estrutura de base, não de exagero visual. Isso vale para a face e também para a vertical íntima.",
   },
   {
-    q: "Quanto tempo dura o resultado?",
-    a: "Os resultados do preenchimento com \u00e1cido hialur\u00f4nico duram entre 12 a 24 meses, dependendo do organismo e do volume aplicado.",
+    title: "Discrição sem perder força comercial",
+    body: "O site entende que resultado visual importa, mas organiza isso com mais controle, sem parecer apelativo ou improvisado.",
   },
   {
-    q: "O procedimento \u00e9 revers\u00edvel?",
-    a: "Sim. O \u00e1cido hialur\u00f4nico pode ser dissolvido com hialuronidase a qualquer momento, tornando o procedimento totalmente revers\u00edvel.",
+    title: "Contato com menos atrito",
+    body: "Quando a página enquadra melhor a decisão, a conversa no WhatsApp começa mais madura, mais qualificada e mais objetiva.",
   },
   {
-    q: "Posso voltar \u00e0s atividades normais no mesmo dia?",
-    a: "A maioria dos pacientes retorna \u00e0s atividades leves no mesmo dia. Recomenda-se evitar atividade f\u00edsica intensa e rela\u00e7\u00f5es sexuais por 7 a 14 dias.",
+    title: "Antes e depois com mais direção",
+    body: "Resultados continuam no centro da decisão, só que agora entram em um sistema mais claro, mais premium e mais coerente.",
+  },
+];
+
+const resultCards = [
+  {
+    kicker: "Ver casos",
+    title: "Resultados",
+    description: "Abra a vitrine por procedimento e veja os casos com mais clareza.",
+    href: "/resultados",
+    label: "Abrir resultados",
   },
   {
-    q: "Quais s\u00e3o os riscos?",
-    a: "Como todo procedimento, existem riscos m\u00ednimos como edema, equimose e assimetria tempor\u00e1ria. Todos s\u00e3o discutidos em detalhes na consulta.",
+    kicker: "Fluxo íntimo",
+    title: "Preenchimento peniano",
+    description: "Galeria pública por volume e acesso reservado quando fizer sentido.",
+    href: "/preenchimento-peniano#resultados",
+    label: "Ver galeria pública",
+  },
+  {
+    kicker: "Dúvidas",
+    title: "Perguntas frequentes",
+    description: "Entenda indicação, rotina, contexto clínico e próximos passos.",
+    href: "/perguntas-frequentes",
+    label: "Ler perguntas",
+  },
+];
+
+const homeFaqCategories = [
+  {
+    label: "Harmonização facial",
+    items: [
+      {
+        question: "A harmonização facial aqui é pensada para resultado natural?",
+        answer:
+          "Sim. O planejamento busca estrutura, proporção e refinamento sem cair em excesso ou leitura artificial.",
+      },
+      {
+        question: "Quais procedimentos entram nessa vertical?",
+        answer:
+          "Rinomodelação, mandíbula, mento, lábios, botox e alectomia estão entre os principais. A indicação final depende da anatomia e do objetivo de cada caso.",
+      },
+    ],
+  },
+  {
+    label: "Procedimentos íntimos",
+    items: [
+      {
+        question: "O preenchimento peniano é tratado com discrição?",
+        answer:
+          "Sim. A navegação pública organiza bem os resultados e o material mais sensível entra em fluxo reservado, com mais contexto e mais controle.",
+      },
+      {
+        question: "O que muda com o ácido hialurônico?",
+        answer:
+          "O ganho principal é de circunferência, contorno e presença visual. O desenho final depende da anatomia de base e do objetivo do paciente.",
+      },
+    ],
+  },
+  {
+    label: "Contato",
+    items: [
+      {
+        question: "Como funciona o primeiro contato?",
+        answer:
+          "O primeiro passo é uma conversa reservada pelo WhatsApp para entender objetivo, contexto e o que realmente faz sentido antes de avançar.",
+      },
+      {
+        question: "Dr. Aquiles atende onde?",
+        answer:
+          "Em Montes Claros e Belo Horizonte, com atendimento direto e sem intermediários desnecessários.",
+      },
+    ],
   },
 ];
 
 export default function Home() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative min-h-screen flex items-center">
-        <div className="absolute inset-0 bg-brand-950">
-          <div className="absolute inset-0 opacity-20">
-            <Image
-              src={portraitImage}
-              alt=""
-              fill
-              className="object-cover"
-              priority
-              sizes="100vw"
-            />
+      <ProcedureHeroHeader
+        reverseLayout={true}
+        fullBleed
+        imageMinHeightClass="min-h-[256px] md:min-h-[512px] lg:min-h-[1024px]"
+        imagePositionClass="object-[center_25%]"
+        cardMaxWidthClass="lg:max-w-5xl"
+        badgeLabel="Doutor Aquiles Rodrigues"
+        eyebrow={`${siteConfig.cromg} · Montes Claros · Belo Horizonte`}
+        title={
+          <>
+            <br />
+            <span className="animate-gentle-fade-up animate-delay-2 block">
+              Estética facial e íntima
+            </span>
+            <span className="animate-gentle-fade-up animate-delay-3 block">
+              com mais critério.
+            </span>
+          </>
+        }
+        intro="As informações essenciais vêm primeiro: quem atende, onde atende e como começa a conversa."
+        details="Harmonização facial e procedimentos íntimos com páginas próprias, prova visual melhor enquadrada e contato direto."
+        imageSrc={portraitImage}
+        imageAlt="Doutor Aquiles Rodrigues"
+        summaryItems={heroSummary}
+        ctaEyebrow="Comece por aqui"
+        ctaTitle="Fale com a clínica"
+        ctaDescription="O primeiro passo segue simples, reservado e sem intermediação."
+        ctaHref={whatsappUrl()}
+        ctaLabel="Abrir WhatsApp"
+        ctaCaption="Resultados e páginas de procedimento organizam o resto da jornada."
+        bottomSlot={
+          <div className="bg-[#17110e]">
+            <HorizontalTicker items={tickerItems} durationSeconds={26} theme="dark" compact />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-b from-brand-950 via-brand-950/80 to-brand-950" />
-        </div>
+        }
+      />
 
-        <div className="relative z-10 section-padding py-32 md:py-40 w-full animate-fade-in-up">
-          <div className="max-w-4xl">
-            <Reveal>
-              <p className="text-gold-400 text-xs tracking-[0.3em] font-sans uppercase mb-6 drop-shadow-md">
-                {siteConfig.cromg} &middot; Montes Claros &middot; BH
-              </p>
-            </Reveal>
-            <Reveal delay={200}>
-              <h1 className="font-display text-hero md:text-hero-lg text-brand-50 leading-tight">
-                Resultados que falam
-                <br />
-                <span className="text-gold-400 bg-clip-text">por si mesmos</span>
-              </h1>
-            </Reveal>
-            <Reveal delay={400}>
-              <p className="mt-8 text-brand-300 text-lg md:text-xl max-w-2xl leading-relaxed font-sans font-light">
-                Harmonização facial e procedimentos estéticos masculinos com técnica,
-                discrição e resultados naturais. Mais de 302 mil pessoas acompanham
-                meu trabalho.
-              </p>
-            </Reveal>
-            <Reveal delay={600}>
-              <div className="mt-12 flex flex-col sm:flex-row gap-6">
-                <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="cta-button">
-                  Agendar consulta
-                </a>
-                <Link href="/resultados" className="cta-button-outline">
-                  Ver resultados completos <ArrowRight size={16} />
-                </Link>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="bg-brand-900 border-y border-brand-800/50 py-12 section-padding">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, i) => (
-            <Reveal key={stat.label} delay={i * 100}>
-              <div className="text-center">
-                <stat.icon size={24} className="mx-auto mb-3 text-gold-500" />
-                <p className="font-display text-xl text-brand-100">{stat.value}</p>
-                <p className="text-xs text-brand-400 tracking-wider uppercase mt-1">
-                  {stat.label}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* Services */}
-      <section className="py-24 md:py-32 section-padding">
-        <div className="max-w-6xl mx-auto">
+      <section className="bg-[#f7ead8] px-6 py-24 md:px-12 md:py-28 lg:px-20">
+        <div className="mx-auto max-w-6xl">
           <Reveal>
-            <p className="text-xs tracking-[0.3em] uppercase text-gold-500 mb-3">
-              Procedimentos
+            <p className="mb-3 text-xs uppercase tracking-[0.3em] text-[#b96f2b]">
+              Escolha sua entrada
             </p>
-            <h2 className="font-display text-section text-brand-100 mb-16">
-              Duas verticais, uma filosofia
+            <h2 className="max-w-3xl font-display text-section text-[#17110e]">
+              Duas frentes claras, com a mesma régua de técnica, discrição e presença.
             </h2>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((service, i) => (
-              <Reveal key={service.href} delay={i * 150}>
-                <Link href={service.href} className="group block">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-brand-800 mb-6">
+          <div className="mt-12 grid gap-8 md:grid-cols-2">
+            {entryCards.map((item, index) => (
+              <Reveal key={item.href} delay={index * 120}>
+                <Link
+                  href={item.href}
+                  className="group soft-hover-lift block overflow-hidden rounded-md border border-black/15 bg-[#f1e2cf]"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden bg-[#dcc0ab]">
                     <Image
-                      src={service.image}
-                      alt={service.title}
+                      src={item.image}
+                      alt={item.title}
                       fill
-                      className="object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700"
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-950/80 to-transparent" />
-                    <div className="absolute bottom-6 left-6 right-6">
-                      <h3 className="font-display text-2xl text-brand-50 mb-2">
-                        {service.title}
-                      </h3>
-                    </div>
                   </div>
-                  <p className="text-brand-400 leading-relaxed">
-                    {service.description}
+                  <div className="border-t border-black/10 p-6">
+                    <p className="text-[10px] uppercase tracking-[0.22em] text-[#b96f2b]">
+                      {item.kicker}
+                    </p>
+                    <h3 className="mt-4 font-display text-[2.2rem] leading-[0.94] text-[#17110e]">
+                      {item.title}
+                    </h3>
+                    <p className="mt-4 text-base leading-relaxed text-[#5b4c42]">
+                      {item.description}
+                    </p>
+                    <span className="mt-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-[#17110e] transition-all group-hover:gap-3">
+                      Explorar
+                      <ArrowRight size={14} />
+                    </span>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={220}>
+            <div className="striped-card-shell mt-8">
+              <div className="striped-card-panel soft-hover-lift flex flex-col gap-6 bg-[#fff3e5] p-6 md:flex-row md:items-center md:justify-between md:p-8">
+                <div className="max-w-2xl">
+                  <p className="text-[10px] uppercase tracking-[0.24em] text-[#8b6c57]">
+                    Contato direto
                   </p>
-                  <span className="inline-flex items-center gap-2 mt-4 text-gold-400 text-sm tracking-wider uppercase group-hover:gap-4 transition-all">
-                    Saiba mais <ArrowRight size={14} />
+                  <h3 className="mt-4 font-display text-[2.4rem] leading-[0.94] text-[#17110e]">
+                    O primeiro passo continua acontecendo no WhatsApp.
+                  </h3>
+                  <p className="mt-4 text-base leading-relaxed text-[#5b4c42]">
+                    Sem formulário longo, sem central de atendimento e sem ruído antes da
+                    conversa real.
+                  </p>
+                </div>
+                <a
+                  href={whatsappUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-md bg-[#17110e] px-7 py-4 text-sm font-medium uppercase tracking-[0.16em] text-[#fff8f0] transition-colors hover:bg-[#2a211d]"
+                >
+                  Abrir WhatsApp
+                </a>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="bg-[#f3e3d2] py-24 md:py-28 section-padding">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <ProcedureAccordionImageSection
+              theme="light"
+              eyebrow="Critério"
+              title="O que sustenta o atendimento é técnica, discrição e resultado bem enquadrado."
+              description="A força da marca não vem de excesso visual. Ela vem de mostrar o que importa com clareza, com contexto e com mais compatibilidade entre forma e conteúdo."
+              items={trustReasons}
+              imageSrc="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=1200&q=80"
+              imageAlt="Retrato masculino editorial"
+              imageKicker="Leitura de marca"
+              imageQuote="Mais direção visual. Menos ruído no que realmente importa."
+            />
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="bg-[#f7ead8] py-24 md:py-28">
+        <div className="w-full">
+          <Reveal>
+            <ClinicianShowcase
+              eyebrow="Responsável pela clínica"
+              title="Conheça o profissional por trás da experiência."
+              description="Mais de 302 mil pessoas acompanham o Dr. Aquiles, mas o que sustenta a confiança é o trabalho dentro do consultório: leitura anatômica, discrição e direção clínica compatível com cada caso."
+              ctaHref="/sobre"
+              ctaLabel="Conhecer o Dr. Aquiles"
+              portraitSrc={portraitImage}
+              portraitAlt="Dr. Aquiles Rodrigues"
+              metrics={[
+                { label: "Audiência", value: "302 mil+" },
+                { label: "Registro", value: "CROMG 42004" },
+                { label: "Praças", value: "Montes Claros + BH" },
+              ]}
+            />
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="bg-[#f3e3d2] px-6 py-24 md:px-12 md:py-28 lg:px-20">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <p className="mb-3 text-xs uppercase tracking-[0.3em] text-[#b96f2b]">
+              Atalhos úteis
+            </p>
+            <h2 className="max-w-3xl font-display text-section text-[#17110e]">
+              O resto do site entra para orientar a decisão, não para disputar atenção com a hero.
+            </h2>
+          </Reveal>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {resultCards.map((item, index) => (
+              <Reveal key={item.href} delay={index * 100}>
+                <Link
+                  href={item.href}
+                  className="group block rounded-md border border-black/15 bg-[#fff3e5] p-6 transition-colors hover:bg-[#f7ead8]"
+                >
+                  <p className="text-[10px] uppercase tracking-[0.24em] text-[#b96f2b]">
+                    {item.kicker}
+                  </p>
+                  <h3 className="mt-4 font-display text-[2rem] leading-[0.94] text-[#17110e]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-4 text-base leading-relaxed text-[#5b4c42]">
+                    {item.description}
+                  </p>
+                  <span className="mt-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-[#17110e] transition-all group-hover:gap-3">
+                    {item.label}
+                    <ArrowRight size={14} />
                   </span>
                 </Link>
               </Reveal>
@@ -166,115 +329,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Before/After teaser */}
-      <section className="py-24 md:py-32 bg-brand-900/50 section-padding">
-        <div className="max-w-6xl mx-auto text-center">
+      <ProcedureFaqSection
+        theme="light"
+        eyebrow="Tem dúvidas? Estamos aqui para orientar."
+        title="Respostas claras ajudam a decidir com mais confiança."
+        subtitle="Do primeiro contato ao tipo de resultado esperado, esta seção organiza as perguntas mais comuns sem tirar a experiência do tom premium."
+        categories={homeFaqCategories}
+        className="bg-[#f7ead8]"
+      />
+
+      <section className="bg-[#ead0b5] px-6 py-20 text-center md:px-12 md:py-24 lg:px-20">
+        <div className="mx-auto max-w-3xl">
           <Reveal>
-            <p className="text-xs tracking-[0.3em] uppercase text-gold-500 mb-3">
-              Resultados
+            <p className="text-xs uppercase tracking-[0.3em] text-[#b96f2b]">
+              Próximo passo
             </p>
-            <h2 className="font-display text-section text-brand-100 mb-6">
-              A transforma&ccedil;&atilde;o &eacute; real
+            <h2 className="mt-4 font-display text-section text-[#17110e]">
+              Continue direto, com mais clareza e menos ruído.
             </h2>
-            <p className="text-brand-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-              Cada resultado &eacute; documentado com autoriza&ccedil;&atilde;o do paciente,
-              respeitando as normas do CFO. As imagens reais ser&atilde;o adicionadas em breve.
+            <p className="mt-6 text-lg leading-relaxed text-[#4f4036]">
+              Se você já sabe o que procura, a melhor rota é simples: ver o procedimento
+              certo, enquadrar a expectativa e seguir para a conversa.
             </p>
-          </Reveal>
-
-          <Reveal delay={200}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-              {[
-                { name: "Preenchimento Peniano", img: "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=800" },
-                { name: "Rinomodelação", img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=800" },
-                { name: "Mandíbula", img: "https://images.unsplash.com/photo-1618077360395-f3068be8e001?q=80&w=800" },
-                { name: "Mento", img: "https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?q=80&w=800" },
-                { name: "Lábios", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800" },
-                { name: "Botox", img: "https://images.unsplash.com/photo-1480455624313-e29b44bbfde1?q=80&w=800" },
-                { name: "Alectomia", img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=800" },
-                { name: "Bichectomia", img: "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?q=80&w=800" },
-              ].map((proc, i) => (
-                <Link
-                  href={proc.name === "Preenchimento Peniano" ? "/preenchimento-peniano" : "/resultados"}
-                  key={i}
-                  className="group relative aspect-[3/4] bg-brand-800 border border-brand-700/50 flex flex-col items-center justify-end overflow-hidden shadow-2xl"
-                >
-                  <Image src={proc.img} alt={proc.name} fill className="object-cover opacity-60 group-hover:scale-[1.03] group-hover:opacity-80 transition-all duration-700" sizes="(max-width: 768px) 100vw, 33vw" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-brand-950/20 to-transparent pointer-events-none" />
-                  <div className="relative z-10 text-center pb-8 w-full translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    <p className="text-gold-500 font-sans tracking-[0.2em] uppercase text-[10px] mb-2 opacity-80">Resultado</p>
-                    <p className="text-brand-100 font-display text-2xl drop-shadow-lg px-2">{proc.name}</p>
-                    <p className="text-gold-400/80 font-sans text-xs uppercase tracking-[0.1em] mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">Explorar <ArrowRight size={14} /></p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </Reveal>
-
-          <Reveal delay={300}>
-            <Link href="/resultados" className="cta-button mt-16 inline-flex">
-              Ver todos os resultados facial <ArrowRight size={16} />
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-24 md:py-32 section-padding">
-        <div className="max-w-3xl mx-auto">
-          <Reveal>
-            <p className="text-xs tracking-[0.3em] uppercase text-gold-500 mb-3">
-              D&uacute;vidas frequentes
-            </p>
-            <h2 className="font-display text-section text-brand-100 mb-12">
-              Perguntas que voc&ecirc; quer fazer
-            </h2>
-          </Reveal>
-
-          <div className="space-y-8">
-            {faqs.map((faq, i) => (
-              <Reveal key={i} delay={i * 100}>
-                <div className="border-b border-brand-800/50 pb-8">
-                  <h3 className="font-display text-lg text-brand-100 mb-3">
-                    {faq.q}
-                  </h3>
-                  <p className="text-brand-400 leading-relaxed">{faq.a}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={500}>
-            <div className="mt-12 text-center">
-              <p className="text-brand-500 mb-4">
-                Tem mais perguntas? Fale diretamente comigo.
-              </p>
-              <a href={whatsappUrl("Ol\u00e1 Dr. Aquiles! Tenho uma d\u00favida sobre procedimentos.")} target="_blank" rel="noopener noreferrer" className="cta-button">
-                Tirar d&uacute;vidas pelo WhatsApp
+            <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+              <a
+                href={whatsappUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-md bg-[#17110e] px-8 py-4 text-sm font-medium uppercase tracking-[0.16em] text-[#fff8f0] transition-colors hover:bg-[#2a211d]"
+              >
+                Falar com a clínica
               </a>
+              <Link
+                href="/resultados"
+                className="inline-flex items-center justify-center rounded-md border border-black/10 px-8 py-4 text-sm uppercase tracking-[0.16em] text-[#17110e] transition-colors hover:border-black/20 hover:bg-[#f1e2cf]"
+              >
+                Explorar resultados
+              </Link>
             </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-24 md:py-32 bg-brand-900 section-padding">
-        <div className="max-w-3xl mx-auto text-center">
-          <Reveal>
-            <h2 className="font-display text-section text-brand-100">
-              Pronto para o pr&oacute;ximo passo?
-            </h2>
-          </Reveal>
-          <Reveal delay={200}>
-            <p className="mt-6 text-brand-400 text-lg leading-relaxed">
-              O primeiro passo &eacute; uma conversa. Discreta, sem compromisso,
-              com todas as informa&ccedil;&otilde;es que voc&ecirc; precisa para tomar a melhor decis&atilde;o.
-            </p>
-          </Reveal>
-          <Reveal delay={400}>
-            <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer" className="cta-button mt-10 inline-flex">
-              Agendar consulta particular
-            </a>
           </Reveal>
         </div>
       </section>

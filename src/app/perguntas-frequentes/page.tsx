@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/reveal";
+import { ProcedureFaqSection } from "@/components/procedure-faq-section";
 import { siteConfig, whatsappUrl } from "@/lib/config";
 
 export const metadata: Metadata = {
@@ -112,6 +113,13 @@ const faqCategories: FAQCategory[] = [
 
 // All FAQ items flattened for schema
 const allFaqItems = faqCategories.flatMap((cat) => cat.items);
+const faqSectionCategories = faqCategories.map((category) => ({
+  label: category.title,
+  items: category.items.map((item) => ({
+    question: item.q,
+    answer: item.a,
+  })),
+}));
 
 export default function PerguntasFrequentesPage() {
   return (
@@ -160,64 +168,51 @@ export default function PerguntasFrequentesPage() {
         }}
       />
 
-      <div className="min-h-screen bg-brand-950 pt-24 pb-16">
-        <div className="mx-auto max-w-3xl px-6">
-          {/* Header */}
+      <div className="bg-[#f7ead8] pt-32 pb-20 md:pt-40 md:pb-28">
+        <div className="section-padding mx-auto max-w-6xl">
           <Reveal>
-            <h1 className="font-display text-4xl md:text-5xl text-white mb-4">
-              Perguntas Frequentes
-            </h1>
-            <p className="text-brand-400 text-lg mb-12 leading-relaxed">
-              Respostas completas e honestas para as dúvidas mais comuns sobre
-              os procedimentos realizados por Dr. Aquiles Rodrigues. Se sua
-              dúvida não estiver aqui, entre em contato — a conversa é discreta
-              e sem compromisso.
-            </p>
+            <div className="max-w-3xl">
+              <p className="mb-4 text-xs uppercase tracking-[0.3em] text-[#b96f2b]">
+                Perguntas frequentes
+              </p>
+              <h1 className="font-display text-hero text-[#17110e]">
+                Respostas mais claras
+                <br />
+                para dúvidas reais.
+              </h1>
+              <p className="mt-6 text-lg leading-relaxed text-[#4f4036]">
+                Harmonização facial, preenchimento peniano, consulta inicial, preparo,
+                recuperação e critérios de indicação organizados em um formato mais útil
+                e escaneável.
+              </p>
+            </div>
           </Reveal>
+        </div>
 
-          {/* Categories */}
-          {faqCategories.map((category) => (
-            <section key={category.slug} id={category.slug} className="mb-16 scroll-mt-24">
-              <Reveal>
-                <h2 className="font-display text-2xl md:text-3xl text-gold mb-8">
-                  {category.title}
-                </h2>
-              </Reveal>
+        <ProcedureFaqSection
+          theme="light"
+          eyebrow="Tem dúvidas? Estamos aqui para orientar."
+          title="Tudo o que costuma travar a decisão, agora em um só lugar."
+          subtitle="Do primeiro contato até resultado, segurança, recuperação e indicação: as perguntas mais importantes organizadas em categorias mais fáceis de navegar."
+          categories={faqSectionCategories}
+          className="bg-transparent pt-16 md:pt-20"
+        />
 
-              <div className="space-y-6">
-                {category.items.map((item, i) => (
-                  <Reveal key={i}>
-                    <div className="border border-brand-800 rounded-lg p-6 hover:border-brand-700 transition-colors">
-                      <h3 className="text-white font-medium text-lg mb-3">
-                        {item.q}
-                      </h3>
-                      <p className="text-brand-400 leading-relaxed text-base">
-                        {item.a}
-                      </p>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-            </section>
-          ))}
-
-          {/* CTA */}
+        <div className="section-padding">
           <Reveal>
-            <div className="border border-gold/30 rounded-lg p-8 bg-gold/5 text-center">
-              <h2 className="font-display text-2xl text-white mb-3">
-                Ainda tem dúvidas?
+            <div className="mx-auto mt-6 max-w-4xl rounded-md border border-black/15 bg-[#f1e2cf] p-8 text-center">
+              <h2 className="font-display text-3xl text-[#17110e]">
+                Ainda quer alinhar algo em privado?
               </h2>
-              <p className="text-brand-400 mb-6">
-                Entre em contato pelo WhatsApp. A conversa é direta com
-                Dr. Aquiles — sem intermediários, com total sigilo.
+              <p className="mt-4 text-base leading-relaxed text-[#5b4c42]">
+                O próximo passo continua sendo uma conversa direta no WhatsApp, com mais
+                discrição e sem intermediários.
               </p>
               <a
-                href={whatsappUrl(
-                  "Olá Dr. Aquiles! Vi o site e tenho algumas dúvidas."
-                )}
+                href={whatsappUrl("Olá Dr. Aquiles! Vi o site e tenho algumas dúvidas.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-gold text-brand-950 px-6 py-3 rounded font-medium hover:bg-gold/90 transition-colors"
+                className="mt-8 inline-flex items-center gap-2 rounded-md bg-[#17110e] px-7 py-4 text-sm font-medium uppercase tracking-[0.16em] text-[#fff8f0] transition-colors hover:bg-[#2a211d]"
               >
                 Conversar no WhatsApp
               </a>
