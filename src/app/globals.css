@@ -22,7 +22,7 @@
     width: 100vw;
     height: 100vh;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.04;
+    opacity: 0.015;
     pointer-events: none;
     z-index: 50;
   }
@@ -53,10 +53,112 @@
   }
 
   .cta-button {
-    @apply inline-flex items-center justify-center gap-2 bg-gold-400 text-brand-950 font-medium px-8 py-4 text-sm tracking-widest font-sans uppercase transition-all duration-300 hover:bg-gold-500 shadow-[0_0_0_rgba(212,185,120,0)] hover:shadow-[0_0_20px_rgba(212,185,120,0.3)] hover:-translate-y-0.5;
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-gold-400 px-8 py-4 text-sm font-medium uppercase tracking-widest text-brand-950 transition-colors duration-300 hover:bg-gold-500;
   }
 
   .cta-button-outline {
-    @apply inline-flex items-center justify-center gap-2 border border-brand-600 text-brand-200 px-8 py-4 text-sm tracking-widest font-sans uppercase transition-all duration-300 hover:border-gold-400 hover:text-gold-400 hover:-translate-y-0.5;
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-brand-600 px-8 py-4 text-sm uppercase tracking-widest text-brand-200 transition-colors duration-300 hover:border-gold-400 hover:text-gold-400;
+  }
+
+  .striped-card-shell {
+    @apply border border-black/15 p-3;
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(23, 17, 14, 0.12) 0,
+      rgba(23, 17, 14, 0.12) 1px,
+      transparent 1px,
+      transparent 8px
+    );
+  }
+
+  .striped-card-panel {
+    @apply border border-black/15;
+  }
+
+  .vertical-marquee-track {
+    animation: vertical-marquee var(--marquee-duration, 16s) linear infinite;
+  }
+
+  .vertical-marquee-track-reverse {
+    animation: vertical-marquee-reverse var(--marquee-duration, 16s) linear infinite;
+  }
+
+  .horizontal-marquee-track {
+    animation: horizontal-marquee var(--marquee-duration, 22s) linear infinite;
+  }
+
+  .animate-gentle-fade-up {
+    animation: gentle-fade-up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .animate-delay-2 {
+    animation-delay: 120ms;
+  }
+
+  .animate-delay-3 {
+    animation-delay: 220ms;
+  }
+
+  .soft-hover-lift {
+    transition:
+      transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .soft-hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 34px rgba(23, 17, 14, 0.08);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vertical-marquee-track,
+    .vertical-marquee-track-reverse,
+    .horizontal-marquee-track,
+    .animate-gentle-fade-up {
+      animation: none;
+    }
+
+    .soft-hover-lift:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+@keyframes vertical-marquee {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes vertical-marquee-reverse {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes horizontal-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes gentle-fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

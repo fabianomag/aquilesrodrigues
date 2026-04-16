@@ -31,13 +31,14 @@ const config: Config = {
         accent: "#1a1614"
       },
       fontFamily: {
-        sans: ["var(--font-outfit)", "system-ui", "sans-serif"],
-        display: ["var(--font-cormorant)", "Georgia", "serif"],
+        sans: ["var(--font-manrope)", "system-ui", "sans-serif"],
+        display: ["var(--font-sora)", "system-ui", "sans-serif"],
+        brand: ["var(--font-antonio)", "system-ui", "sans-serif"],
       },
       fontSize: {
-        "hero": ["3.5rem", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
-        "hero-lg": ["5rem", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
-        "section": ["2.5rem", { lineHeight: "1.15", letterSpacing: "-0.01em" }],
+        "hero": ["3.5rem", { lineHeight: "1.02", letterSpacing: "-0.045em" }],
+        "hero-lg": ["5rem", { lineHeight: "0.98", letterSpacing: "-0.05em" }],
+        "section": ["2.5rem", { lineHeight: "1.05", letterSpacing: "-0.04em" }],
       },
     },
   },

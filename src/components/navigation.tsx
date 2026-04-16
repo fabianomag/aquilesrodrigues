@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { clsx } from "clsx";
 
@@ -16,6 +17,16 @@ const links = [
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const useLightTopBar =
+    pathname === "/" ||
+    pathname === "/harmonizacao-facial" ||
+    pathname === "/preenchimento-peniano" ||
+    pathname === "/sobre" ||
+    pathname === "/contato" ||
+    pathname === "/perguntas-frequentes" ||
+    pathname.startsWith("/resultados");
+  const useDarkShell = scrolled || !useLightTopBar;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -27,14 +38,20 @@ export function Navigation() {
     <header
       className={clsx(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        scrolled
+        useDarkShell
           ? "bg-brand-950/95 backdrop-blur-md border-b border-brand-800/50"
-          : "bg-transparent"
+          : "border-b border-black/10 bg-[#f1e2cf]/88 backdrop-blur-md"
       )}
     >
       <nav className="section-padding flex items-center justify-between h-20">
-        <Link href="/" className="font-display text-xl text-brand-100 tracking-wide">
-          Dr. Aquiles
+        <Link
+          href="/"
+          className={clsx(
+            "font-brand text-[1.65rem] uppercase leading-none tracking-[0.12em] transition-colors duration-300 sm:text-[1.8rem]",
+            useDarkShell ? "text-brand-100" : "text-[#17110e]",
+          )}
+        >
+          Doutor Aquiles
         </Link>
 
         <div className="hidden lg:flex items-center gap-8">
@@ -42,7 +59,12 @@ export function Navigation() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-xs tracking-widest uppercase text-brand-300 hover:text-gold-400 transition-colors duration-300"
+              className={clsx(
+                "text-xs tracking-widest uppercase transition-colors duration-300",
+                useDarkShell
+                  ? "text-brand-300 hover:text-gold-400"
+                  : "text-[#5b4c42] hover:text-[#17110e]",
+              )}
             >
               {link.label}
             </Link>
@@ -51,7 +73,10 @@ export function Navigation() {
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden p-2 text-brand-200"
+          className={clsx(
+            "lg:hidden p-2 transition-colors duration-300",
+            useDarkShell ? "text-brand-200" : "text-[#17110e]",
+          )}
           aria-label="Menu"
         >
           {isOpen ? <X size={24} /> : <Menu size={24} />}

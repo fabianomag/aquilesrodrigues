@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Cormorant_Garamond } from "next/font/google";
+import { Antonio, Manrope, Sora } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
@@ -7,16 +7,23 @@ import { WhatsappFloat } from "@/components/whatsapp-float";
 import { siteConfig } from "@/lib/config";
 import { DentistJsonLd, WebSiteJsonLd } from "@/components/json-ld";
 
-const outfit = Outfit({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-outfit",
+  variable: "--font-manrope",
   display: "swap",
 });
 
-const cormorantGaramond = Cormorant_Garamond({
+const sora = Sora({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-cormorant",
+  variable: "--font-sora",
+  display: "swap",
+});
+
+const antonio = Antonio({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  variable: "--font-antonio",
   display: "swap",
 });
 
@@ -41,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`${outfit.variable} ${cormorantGaramond.variable}`}>
+    <html lang="pt-BR" className={`${manrope.variable} ${sora.variable} ${antonio.variable}`}>
       <body className="font-sans">
         <DentistJsonLd />
         <WebSiteJsonLd />
