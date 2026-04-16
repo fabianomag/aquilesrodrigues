@@ -40,7 +40,7 @@ export function BeforeAfterSlider({ beforeImage, afterImage }: SliderProps) {
 
   return (
     <div 
-      className="relative w-full h-full object-cover overflow-hidden select-none cursor-ew-resize bg-brand-900 group"
+      className="relative h-full w-full cursor-ew-resize overflow-hidden bg-[#d9c1a7] object-cover select-none group"
       ref={containerRef}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
@@ -58,16 +58,20 @@ export function BeforeAfterSlider({ beforeImage, afterImage }: SliderProps) {
       </div>
 
       <div 
-        className="absolute top-0 bottom-0 w-[2px] bg-gold-400 cursor-ew-resize opacity-80"
+        className="absolute bottom-0 top-0 w-[2px] cursor-ew-resize bg-[#17110e] opacity-70"
         style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-brand-950 border border-gold-400 rounded-full flex items-center justify-center shadow-lg transition-transform duration-200 group-hover:scale-110">
-          <div className="w-[1px] h-3 border-l border-r border-gold-400/50 opacity-60"></div>
+        <div className="absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#17110e]/30 bg-[#fbf4ec] shadow-sm transition-transform duration-200 group-hover:scale-110">
+          <div className="h-3 w-[1px] border-l border-r border-[#17110e]/40 opacity-60"></div>
         </div>
       </div>
 
-      <span className="absolute top-4 left-4 bg-brand-950/80 backdrop-blur-sm text-gold-400 text-[10px] px-3 py-1.5 font-sans tracking-[0.2em] uppercase pointer-events-none rounded-sm border border-gold-500/20">Antes</span>
-      <span className="absolute top-4 right-4 bg-brand-950/80 backdrop-blur-sm text-gold-400 text-[10px] px-3 py-1.5 font-sans tracking-[0.2em] uppercase pointer-events-none rounded-sm border border-gold-500/20">Depois</span>
+      <span className="pointer-events-none absolute left-4 top-4 border border-black/10 bg-[#fbf4ec]/92 px-3 py-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-[#17110e]">
+        Antes
+      </span>
+      <span className="pointer-events-none absolute right-4 top-4 border border-black/10 bg-[#fbf4ec]/92 px-3 py-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-[#17110e]">
+        Depois
+      </span>
     </div>
   );
 }
