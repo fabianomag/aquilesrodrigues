@@ -7,9 +7,14 @@ const PRIVATE_ACCESS_TTL_MS = 30 * 60 * 1000;
 
 export interface PrivateAccessPayload {
   caseId: string;
+  caseLabel?: string;
   budget: number;
   mlSelection: number | null;
   whatsapp: string;
+  goal?: string;
+  location?: string;
+  timeline?: string;
+  source?: string;
   consentAccepted: true;
   issuedAt: number;
   expiresAt: number;
@@ -24,15 +29,25 @@ function sign(body: string) {
 
 export function createPrivateAccessToken(input: {
   caseId: string;
+  caseLabel?: string;
   budget: number;
   mlSelection: number | null;
   whatsapp: string;
+  goal?: string;
+  location?: string;
+  timeline?: string;
+  source?: string;
 }) {
   const payload: PrivateAccessPayload = {
     caseId: input.caseId,
+    caseLabel: input.caseLabel,
     budget: input.budget,
     mlSelection: input.mlSelection,
     whatsapp: input.whatsapp,
+    goal: input.goal,
+    location: input.location,
+    timeline: input.timeline,
+    source: input.source,
     consentAccepted: true,
     issuedAt: Date.now(),
     expiresAt: Date.now() + PRIVATE_ACCESS_TTL_MS,
