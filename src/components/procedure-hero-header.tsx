@@ -58,6 +58,17 @@ export function ProcedureHeroHeader({
   cardMaxWidthClass = "lg:max-w-4xl",
   bottomSlot,
 }: ProcedureHeroHeaderProps) {
+  const cardShellClassName = clsx(
+    "striped-card-shell relative z-10 mx-6 -mt-14 md:mx-12 lg:mx-20",
+    cardMaxWidthClass,
+    reverseLayout
+      ? "lg:ml-auto lg:mr-20 lg:-mt-24"
+      : "lg:mr-auto lg:ml-20 lg:-mt-24",
+    fullBleed && "lg:mr-20",
+  );
+
+  const cardShellStyle = { maxWidth: "72rem" };
+
   return (
   <section className="relative flex flex-col h-[100dvh] overflow-hidden bg-[#f1e2cf]">
 
@@ -117,14 +128,7 @@ export function ProcedureHeroHeader({
         </Reveal>
       </div>
 
-      <div
-        className={clsx(
-          "striped-card-shell relative z-10 mx-6 -mt-14 md:mx-12 lg:mx-20 lg:-mt-24",
-          cardMaxWidthClass,
-          reverseLayout && "lg:ml-auto lg:mr-20",
-          fullBleed && "lg:mr-20",
-        )}
-      >
+      <div className={cardShellClassName} style={cardShellStyle}>
         <div className="striped-card-panel grid bg-[#e7c7a6] md:grid-cols-[1.2fr_0.8fr]">
           
           <div className="border-b border-black/10 p-6 md:border-b-0 md:border-r md:border-black/10 md:p-8">
